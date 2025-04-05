@@ -1,0 +1,149 @@
+:root {
+    --dark-green: #385742;
+    --light-green: #A1B582;
+    --grey: #949494; 
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    margin:0;
+    padding: 0;
+    background: var(--light-green);
+    color: #000
+}
+
+nav {
+    background-color: var(--dark-green);
+    padding: 16px;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:16px;
+    justify-content:center;
+    margin:0;
+    padding:0;
+}
+
+nav ul li a 
+{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main{
+    padding: 36px;
+    text-align: center;
+}
+
+h1, h2, h3 {
+    color: var(--grey);
+} 
+
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.book {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 16px;
+    width: 200px; 
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.book:hover {
+    transform: translateY(-4px);
+}
+
+.book img {
+    width: 150px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.book button {
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.book button:hover {
+    background-color: #2d4735;
+}
+
+.book-content {
+    margin:20px auto;
+    max-width: 600px;
+    text-align: left;
+}
+
+#book-text {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rbga(0,0,0,0.1);
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+#cast-btn {
+    background-color: #385742;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+.popup {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.tab-section {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.tab {
+    background-color: #A1B582;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    transition: background-color 0.2s ease;
+}
+
+
+.tab-content {
+    background: white;
+    padding: 16px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}

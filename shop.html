@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UFT-8" />
+        <meta  name=" viewport"content= "width=device-width, initial-scale=1.0"/>
+        <title> E-Shop</title>
+        <link rel="stylesheet" href="style.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav>
+            <ul>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="bookshelf.html">Bookshelf</a></li>
+                <li><a href="book.html">Read</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <h1>Welcome to the Shop!</h1>
+
+            <div class="bood-grid">
+
+             <div class="book">
+                <img src="Sense and sensibility.jpg" alt="Sense and Sensibility" />
+                <h2>Sense and Sensibility</h2>
+                <button onclick="addToBookshelf('Sense and Sensibility', 'senseandsensibility.jpg' )">
+                    Add to Bookshelf</button>
+            </div>
+
+
+            <div class="book">
+                <img src="romeoandjuliet.jpg" alt="Romeo and Juliet" />
+                <h2>Romeo and Juliet</h2>
+                <button onclick="addToBookshelf('Romeo and Juliet', 'romeoandjuliet.jpg')">Add to Bookshelf</button>
+            </div>
+
+            <div class="book">
+                <img src="orange.webp" alt="The Orange Book" />
+                <h2>The Orange Book</h2>
+                <button onclick="addToBookshelf('The Orange Book', 'orange.webp')">Add to Bookshelf</button>
+              </div>
+            </div>
+          
+
+        </main>
+
+        <script src="shop.js"></script>
+
+    </body>
+
+    
+</html>
