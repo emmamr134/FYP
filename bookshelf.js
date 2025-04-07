@@ -10,13 +10,14 @@ if (bookshelf.length === 0) {
     bookCard.innerHTML = `
       <img src="${book.image}" alt="${book.title}" />
       <h2>${book.title}</h2>
-      <button onclick="readBook()">Read Book</button>
+      <button onclick="readBook('${book.title}', '${book.image}')">Read Book</button>
     `;
     container.appendChild(bookCard);
   });
 }
 
-function readBook() {
+function readBook(title, image) {
+  localStorage.setItem("currentBook", JSON.stringify({ title, image }));
   window.location.href = "book.html";
 }
 
