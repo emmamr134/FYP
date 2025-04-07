@@ -34,8 +34,9 @@ nav ul li a
 }
 
 main{
-    padding: 36px;
-    text-align: center;
+    width: 100%;
+    margin: 0 auto ;
+    padding: 0;
 }
 
 h1, h2, h3 {
@@ -80,19 +81,35 @@ h1, h2, h3 {
 }
 
 .book-content {
-    margin:20px auto;
-    max-width: 600px;
-    text-align: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;  
 }
 
 #book-text {
     background: white;
-    padding: 20px;
+    padding: 40px;
     border-radius: 8px;
     box-shadow: 0 2px 6px rbga(0,0,0,0.1);
-    margin-bottom: 16px;
-    line-height: 1.6;
+    line-height: 1.8;
+
+    width: 90%;
+    max-width: 1000px;
+    min-height: 600px;
+    margin: 40px auto;
+    font-size: 18px;
+    box-sizing: border-box;
 }
+
+@media screen and (max-width: 600px) {
+    #book-text {
+      padding: 20px;
+      font-size: 16px;
+    }
+  }
+  
 
 #cast-btn {
     background-color: #385742;
@@ -212,3 +229,23 @@ h1, h2, h3 {
     max-width: 250px;
     z-index:1000;
 }
+
+button {
+    background-color: #A1B582;
+    border:none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+button:hover{
+    background-color: #94a76c;
+}
+
+.highlighted {
+    background-color: yellow;
+    border-radius: 4px;
+  }
+  

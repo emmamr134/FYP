@@ -31,21 +31,15 @@ if (bookData) {
   document.getElementById("book-title").textContent = "No book selected.";
 }
 
-document.getElementById("book-text").addEventListener("click", (event) => {
+let selectedWord ="";
+
+document.getElementById("book-text").addEventListener("mouseup", () => {
   const selection = window.getSelection();
   const word = selection.toString().trim();
 
   if (word.length > 0) {
-    const span = document.createElement("span");
-    span.className = "highlighted";
-    span.textContent = word;
-
-    const range = selection.getRangeAt(0);
-    range.deleteContents();
-    range.insertNode(span);
-
-    console.log("Selected word:", word);
-    fetchDefinition(word);
+   selectedWord=word;
+   fetchDefinition(word);
   }
 });
 
@@ -82,5 +76,21 @@ function fetchDefinition(word) {
       console.error("Fetch error:", error); // ✅ NEW LINE
       showDefinition(`${word}: No definition found.`);
     });
+}
+
+function highlightSelectedWord() {
+  if (!selectedWord) return;
+
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+  
+    const span = document.createElement("span");
+    span.className = "highlighted";
+    span.textContent = selectedWord;
+
+    range.deleteContents();
+    range.insertNode(span);
+
+  selectedWord = ""; // Reset after highlight
 }
 
