@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () =>{
+  updateBookshelfDropdown();
+});
+
 function showToast(message) {
   const toast = document.getElementById("toast");
   toast.textContent = message;
@@ -24,13 +28,12 @@ function addToBookshelf(title, image) {
   showToast(`${title} added to your bookshelf!`);
 }
 
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
+
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-// Close the dropdown menu if the user clicks outside of it
+
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -43,3 +46,49 @@ window.onclick = function(event) {
     }
   }
 } 
+
+function handleDownload(title,image){
+  addToBookshelf(title, image);
+
+  document.getElementById("download-btn").classList.add("hidden");
+  document.getElementById("read-btn").classList.remove("hidden");
+}
+
+function readNow(title,image) {
+  const bookData = {title,image};
+  localStorage.setItem("currentBook", JSON.stringify(bookData));
+  window.location.href ="book.html"
+}
+
+function updateBookshelfDropdown() {
+  const bookshelf = JSON.parse(localStorage.getItem("bookshelf")) || [];
+  const dropdown = document.getElementById("bookshelf-preview");
+
+  dropdown.innerHTML = ""; 
+
+  const previewBooks = bookshelf.slice(0, 2);
+  previewBooks.forEach(book => {
+    const li = document.createElement("li");
+    const link = document.createElement("a");
+
+    link.href = "#";
+    link.textContent = book.title;
+    link.onclick = () => {
+      localStorage.setItem("currentBook", JSON.stringify(book));
+      window.location.href = "book.html";
+    };
+
+    li.appendChild(link);
+    dropdown.appendChild(li);
+  });
+
+  if (bookshelf.length > 2) {
+    const viewAll = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "bookshelf.html";
+    link.textContent = "+ View All";
+    viewAll.appendChild(link);
+    dropdown.appendChild(viewAll);
+  }
+}
+

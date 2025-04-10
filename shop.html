@@ -12,8 +12,13 @@
         <nav>
             <div id="wrapper">
             <ul class="items">
-                    <li><a href="shop.html">Shop</a></li>
-                    <li><a href="bookshelf.html">Bookshelf</a></li>
+                    <li><a href="shop.html" class="active">Shop</a></li>
+
+                    <li class="bookshelf-dropdown">
+                        <a href="bookshelf.html">Bookshelf</a> 
+                        <ul class="dropdown-list hidden" id="bookshelf-preview"></ul>
+                    </li>
+
                     <li><a href="activities.html">Activities</a></li>
                     <li><a href="notes.html">Notes</a></li>
                     <li><a href="achievements.html">Achievements</a></li>
@@ -113,6 +118,8 @@
         <div id="toast" class="toast-message hidden">Book added!</div>
 
         <script src="shop.js"></script>
+        <script src="shared.js"></script>
+
         
     </body>
 

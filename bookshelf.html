@@ -12,8 +12,8 @@
 <body>
 <nav>
     <ul class="items">
-        <li><a href="shop.html">Shop</a></li>
-                <li><a href="bookshelf.html">Bookshelf</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="bookshelf.html" class="active">Bookshelf</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="notes.html">Notes</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
@@ -28,11 +28,25 @@
 
 
 <script src="bookshelf.js"></script>
+<script src="shared.js"></script>
+
 
 <div class="footer">
     <p>We Love Lit © </p>
 </div>
 
+<div id="confirm-popup" class="modal hidden">
+    <div class="modal-content">
+      <p>Are you sure you want to clear your bookshelf?</p>
+      <div class="modal-buttons">
+        <button onclick="confirmClear()">Yes, clear it</button>
+        <button onclick="cancelClear()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<div id="toast" class="toast-message hidden"></div>
+  
 </body>
 
 </html>
