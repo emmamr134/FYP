@@ -1,29 +1,54 @@
 :root {
-    --dark-green: #385742;
-    --light-green: #A1B582;
+    --light-blue: #B7D0D6;
+    --dark-blue: #6F95B3;
+    --light-green: #B6CC8B;
+    --dark-green: #697955;
     --grey: #949494; 
+    --cream: #FFF7DF;
 }
 
 body {
     font-family: 'Lexend', sans-serif;
     margin:0;
     padding: 0;
-    background: var(--light-green);
+    background: var(--cream);
     color: #000
 }
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:var(--light-green);
+    color: white;
+    text-align: center;
+ }
+
 nav {
-    background-color: var(--dark-green);
+    background-color: var(--light-blue);
     padding: 16px;
 }
 
-nav ul{
+.items {
     display:flex;
     list-style:none;
     gap:16px;
-    justify-content:center;
+    justify-content:left;
     margin:0;
     padding:0;
+}
+
+#profile {
+    display:flex;
+    list-style:none;
+    justify-content:right;  
+    margin:0;
+    padding:0; 
+}
+
+#wrapper {
+    position: relative;
 }
 
 nav ul li a 
@@ -33,30 +58,14 @@ nav ul li a
     font-weight: bold;
 }
 
-main {
-    text-align:center;
-    padding: 36px;
-}
-
-
-.book-reader main{
+main{
+    width: 100%;
+    margin: 0 auto ;
     padding: 0;
-    margin:0 auto;
-    text-align: left;
-}
-
-
-.book-page img{
-    max-width: 100%;
-}
-
-.book-page{
-    padding: 0;
-    margin: 0 auto;
 }
 
 h1, h2, h3 {
-    color: var(--grey);
+    color: var(--dark-green);
 } 
 
 .book-grid {
@@ -78,11 +87,6 @@ h1, h2, h3 {
     margin-bottom: 12px;
     display: block;
     object-fit: contain;
-}
-
-.bookshelf-page main button {
-    display: inline-block;
-    margin: 16px auto;
 }
 
 .book button {
@@ -109,7 +113,7 @@ h1, h2, h3 {
     width: 100%;  
 }
 
-.book-reader #book-text {
+#book-text {
     background: white;
     padding: 40px;
     border-radius: 8px;
@@ -132,7 +136,7 @@ h1, h2, h3 {
   }
   
 
-.book-reader #cast-btn {
+#cast-btn {
     background-color: #385742;
     color: white;
     border: none;
@@ -142,7 +146,7 @@ h1, h2, h3 {
     margin-bottom: 20px;
   }
 
-.book-reader .popup {
+.popup {
     background: white;
     padding: 16px;
     border-radius: 8px;
@@ -160,7 +164,7 @@ h1, h2, h3 {
     margin: 0 auto;
 }
 
-.book-reader .tab {
+.tab {
     background-color: #A1B582;
     border: none;
     padding: 10px;
@@ -202,9 +206,7 @@ h1, h2, h3 {
     width:200px;
     height: 380px;
 
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba (0,0,0,0.1);
+    
     padding: 16px;
     text-align:center;
     transition: transform 0.2s ease;
@@ -251,7 +253,7 @@ h1, h2, h3 {
     z-index:1000;
 }
 
-.book-reader button {
+button {
     background-color: #A1B582;
     border:none;
     padding: 10px 16px;
