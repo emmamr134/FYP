@@ -8,7 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Mukta+Malar&display=swap" rel="stylesheet" />
 </head>
 <body>
+
 <nav>
+  <button id="toggle-theme">Dark Mode</button>
     <ul class="items">
       <li><a href="shop.html">Shop</a></li>
       <li><a href="bookshelf.html" class="active">Bookshelf</a></li>
@@ -18,15 +20,24 @@
     </ul>
 </nav>
 
+
 <main>
-  
 
     <section class="book-content">
-      <h1 id="book-title">Loading...</h1>
-      <img id="book-image" style="max-width: 200px; border-radius: 8px;" />
-      <p id="book-text"></p>  
+      <h1 id="book-title">Romeo and Juliet</h1>
 
-      <button onclick="highlightSelectedWord()">Highlight</button>
+      <div class="reader-wrapper">
+        <button id="prev-btn" class="nav-btn">Back</button>
+        
+        <div id="book-text" class="reader"></div>
+        <button id="next-btn" class="nav-btn">Next</button>
+      </div>
+
+      <div class="reader-toolbar">
+        <button onclick="highlightSelectedWord()">Highlight</button>
+
+
+      </div>
 
         <button id="cast-btn">View Cast</button>
         <div id="cast-popup" class="popup hidden">
@@ -62,10 +73,10 @@
     <div id="dictionary-popup" class="popup hidden">
       <h3>Definition</h3>
       <p id="definition-text">Click a word to look it up!</p>
-      <button onclick="closeDefinition()">Close</button>
+      <button id="close-dict">Close</button>
     </div>
     <script src="book.js"></script>
     <script src="shared.js"></script>
 
-  </body>
+ </body>
   </html>

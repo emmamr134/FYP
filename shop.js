@@ -1,5 +1,21 @@
 document.addEventListener("DOMContentLoaded", () =>{
   updateBookshelfDropdown();
+
+  const downloadBtn = document.getElementById("download-btn");
+  const readBtn     = document.getElementById("read-btn");
+  if (downloadBtn && readBtn) {
+
+    const titleEl = document.querySelector(".book-info h1");
+    const title   = titleEl ? titleEl.textContent.trim() : null;
+
+    const bookshelf = JSON.parse(localStorage.getItem("bookshelf")) || [];
+    const owned     = title && bookshelf.some(b => b.title === title);
+
+    if (owned) {
+      downloadBtn.classList.add("hidden");
+      readBtn.classList.remove("hidden");
+    }
+  }
 });
 
 function showToast(message) {

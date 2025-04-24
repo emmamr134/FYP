@@ -1,4 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Literata:wght@400;500;700&family=Inter:wght@400;600&display=swap');
+
+
 :root {
+  --font-body: 'Literata', serif;
+  --font-ui: 'Inter', sans-serif;
+  --line-height:1.6;
+  --text-color: #333;
     --light-blue: #B7D0D6;
     --dark-blue: #6F95B3;
     --light-green: #B6CC8B;
@@ -8,11 +15,21 @@
 }
 
 body {
-    font-family: 'Lexend', sans-serif;
+    font-family: var(--font-body);
     margin:0;
     padding: 0;
-    background: var(--cream);
-    color: #000
+    background: #f9f9f9;
+    color: var(--text-color);
+    line-height: var(--line-height);
+
+}
+
+h1,h2,h3{
+  font-family: var(--font-ui);
+  margin-bottom:0.5em;
+}
+.accessible-text{
+  font-family: 'Inter', Arial, sans-serif;
 }
 
 .footer {
@@ -26,17 +43,26 @@ body {
  }
 
 nav {
-    background-color: var(--light-blue);
-    padding: 16px;
+    position: fixed;
+    top:0; left: 0; right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1rem 2rem;
+    height:64px;
+    background: var(--light-blue);
+    z-index: 1000;
 }
+
 
 .items {
     display:flex;
-    list-style:none;
-    gap:16px;
-    justify-content:left;
+    flex-wrap:wrap;
+    gap:1rem;
     margin:0;
     padding:0;
+    list-style: none;
 }
 
 #profile {
@@ -70,15 +96,6 @@ nav ul li a.active::after {
     border-radius: 2px;
   }
 
-main{
-    width: 100%;
-    margin: 0 auto ;
-    padding: 0;
-}
-
-h1, h2, h3 {
-    color: var(--dark-green);
-} 
 
 .book-grid {
     display: flex;
@@ -118,27 +135,100 @@ h1, h2, h3 {
 }
 
 .book-content {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;  
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+#book-title{
+ font-size: 2rem;
+ margin-top: 1.5rem;
 }
 
 #book-text {
-    background: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rbga(0,0,0,0.1);
-    line-height: 1.8;
-
-    width: 90%;
-    max-width: 1000px;
-    min-height: 600px;
-    margin: 40px auto;
-    font-size: 18px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 2rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-y: auto;
+  height: 60vh;
 }
+
+#book-text h3{
+  font-family: var(--font-ui);
+  font-size: 2rem;
+  text-align: center;
+  margin: 3rem 0 1.5rem;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+#book-text h4{
+  font-family: var(--font-ui);
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 2rem 0 1rem;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+#book-text p {
+  margin-bottom: 1.5rem;
+}
+
+#book-text::first-letter {
+  font-size: 4rem;
+  float: left;
+  line-height: 1;
+  margin-right: 0.1em;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  color: var(--dark-blue);
+}
+
+
+.nav-btn{
+  background: rgba (255,255,255,0.8);
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  z-index: 10;
+}
+
+.nav-btn:hover{
+  transform: translateY(-2px);
+}
+
+#prev-btn {
+  position: absolute;
+  left: -3rem;;
+}
+
+#next-btn {
+  position: absolute;
+  right: -3rem;
+}
+
+
+#book-image {
+  display: none !important;
+}
+
+/*
+
+@media (min-width:1024px){
+  #book-text {
+    columns: 2;
+    column-gap: 3rem;
+  }
+}
+*/
 
 @media screen and (max-width: 600px) {
     #book-text {
@@ -199,7 +289,7 @@ h1, h2, h3 {
     display:flex;
     overflow-x:auto;
     gap:24px;
-    padding:20px;
+    padding:200px 0 20px 0;
     scroll-snap-type: x mandatory;
 }
 
@@ -211,12 +301,12 @@ h1, h2, h3 {
 .book {
     display:flex;
     flex-direction: column;
-    justify-content:flex-start;
+    justify-content:space-between;
     align-items: center;
 
     flex: 0 0 auto;
     width:200px;
-    height: 380px;
+    height: 400px;
 
     
     padding: 16px;
@@ -428,8 +518,13 @@ button:hover{
     }
   
     nav ul.items {
-      flex-direction: column;
-      align-items: flex-start;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-start;
+      align-items: center;
     }
   }
   
@@ -453,3 +548,57 @@ button:hover{
   .book:hover .delete-btn {
     opacity: 1;
   }
+
+  a,button {
+    font-family: var(--font-ui);
+    transition: all 0.2s ease;
+  }
+
+  a:hover , button:hover{
+    color: #0055ff;
+    text-decoration: underline;
+  }
+  .page-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .page-header h1{
+    font-family: var(--font-ui);
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .reader-wrapper {
+    position: relative;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .swipe-arrow {
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    color:rgba(0,0,0,0.25);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .swipe-arrow.left { left:1rem;}
+  .swipe-arrow.right {right:1rem;}
+
+  .reader-toolbar {
+    position: sticky;
+    top: 80px; /* adjust based on nav height */
+    background: #f9f9f9;
+    padding: 10px;
+    z-index: 999;
+    text-align: center;
+  }
+  

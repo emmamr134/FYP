@@ -1,96 +1,190 @@
-function loadBookText(filename) {
-  fetch(filename)
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("book-text").innerHTML = data;
-    })
-    .catch(error => {
-      document.getElementById("book-text").textContent = "Failed to load book text.";
-      console.error(error);
+let isHighlighting = false;
+let lastHighlightedText = "";
+let lastHighlightedSpan = null;
+let lastHighlightedHTML = null;
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+ 
+  function loadBookText(filename) {
+    fetch(filename)
+      .then(response => response.text())
+      .then(raw => {
+
+        let text = raw.replace(/\r\n?/g, "\n");
+        text = text.replace(/"(?=\s)/g, '"\n\n');
+
+        const paragraphs = text
+          .split(/\n{2,}/)
+          .map(p => `<p>${p.trim()}</p>`)
+          .join("");
+
+        const container = document.getElementById("book-text");
+        if (container) container.innerHTML = paragraphs;
+      })
+      .catch(err => {
+        console.error("Failed to load book text:", err);
+        const container = document.getElementById("book-text");
+        if (container) container.textContent = "Failed to load book text.";
+      });
+  }
+
+
+  document.getElementById("book-text").addEventListener("mouseup", () => {
+    if (isHighlighting) return; 
+  
+    const selection = window.getSelection().toString().trim();
+if (selection && selection.split(/\s+/).length === 1) {
+  fetchDefinition(selection);
+}
+});
+   
+  
+  (function initBookView() {
+    const bookData = JSON.parse(localStorage.getItem("currentBook"));
+    const titleEl = document.getElementById("book-title");
+    const imgEl = document.getElementById("book-image");
+
+    if (!bookData) {
+      if (titleEl) titleEl.textContent = "No book selected.";
+      return;
+    }
+
+    if (titleEl) titleEl.textContent = bookData.title;
+    if (imgEl) imgEl.src = bookData.image;
+
+    const bookFiles = {
+      "Romeo and Juliet": "romeoandjuliet.txt",
+      "Sense and Sensibility": "senseandsensibility.txt"
+    };
+
+    const filename = bookFiles[bookData.title];
+    if (filename) loadBookText(filename);
+    else if (titleEl) titleEl.textContent = "No book text available.";
+  })();
+
+  const reader = document.getElementById("book-text");
+
+  function nextPage() {
+    if (reader) reader.scrollBy({ top: reader.clientHeight, behavior: "smooth" });
+  }
+  function prevPage() {
+    if (reader) reader.scrollBy({ top: -reader.clientHeight, behavior: "smooth" });
+  }
+
+
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  if (prevBtn) prevBtn.addEventListener("click", prevPage);
+  if (nextBtn) nextBtn.addEventListener("click", nextPage);
+
+  let touchStartX = 0;
+  const swipeThreshold = 50;
+  if (reader) {
+    reader.addEventListener("touchstart", e => {
+      touchStartX = e.changedTouches[0].screenX;
     });
-}
-
-const bookData = JSON.parse(localStorage.getItem("currentBook"));
-
-if (bookData) {
-  document.getElementById("book-title").textContent = bookData.title;
-  document.getElementById("book-image").src = bookData.image;
-
-  const bookFiles = {
-    "Romeo and Juliet": "romeoandjuliet.txt",
-  };
-
-  const filename = bookFiles[bookData.title];
-
-  if (filename) {
-    loadBookText(filename);
-  } else {
-    document.getElementById("book-text").textContent = "No book text available.";
+    reader.addEventListener("touchend", e => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) < swipeThreshold) return;
+      if (dx < 0) nextPage(); else prevPage();
+      
+      
+      const nav = document.querySelector("nav");
+      const main = document.querySelector("main");
+      if (nav && main) {
+        const navHeight = nav.getBoundingClientRect().height;
+        main.style.paddingTop = `${navHeight}px`;
+      }
+     });
   }
-} else {
-  document.getElementById("book-title").textContent = "No book selected.";
-}
-
-let selectedWord ="";
-
-document.getElementById("book-text").addEventListener("mouseup", () => {
-  const selection = window.getSelection();
-  const word = selection.toString().trim();
-
-  if (word.length > 0) {
-   selectedWord=word;
-   fetchDefinition(word);
+  
+  function showDefinition(message) {
+    const popup = document.getElementById("dictionary-popup");
+    const defText = document.getElementById("definition-text");
+    if (defText) defText.textContent = message;
+    if (popup) popup.classList.remove("hidden");
   }
+
+  function closeDefinition() {
+    const popup = document.getElementById("dictionary-popup");
+    if (popup) popup.classList.add("hidden");
+  }
+
+  document.getElementById("close-dict").addEventListener("click", closeDefinition);
+
+  function fetchDefinition(word) {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+      .then(res => res.json())
+      .then(data => {
+        const def = data[0]?.meanings[0]?.definitions[0]?.definition;
+        showDefinition(def ? `${word}: ${def}` : `${word}: No definition found.`);
+      })
+      .catch(err => {
+        console.error("Dictionary fetch error:", err);
+        showDefinition(`${word}: No definition found.`);
+      });
+  }
+
+  document.getElementById("book-text").addEventListener("mouseup", () => {
+    if (isHighlighting) return;
+  
+    const selection = window.getSelection();
+    const word = selection.toString().trim();
+  
+    const isSingleWord = /^[a-zA-Z]+$/.test(word);
+  
+    if (word && isSingleWord) {
+      fetchDefinition(word);
+    }
+  });
+
+  const closeBtn = document.getElementById("close-dict");
+  if (closeBtn) closeBtn.addEventListener("click", closeDefinition);
+
 });
 
-
-function showDefinition(message) {
-  const popup = document.getElementById("dictionary-popup");
-  const defText = document.getElementById("definition-text");
-
-  defText.textContent = message;
-  popup.classList.remove("hidden");
-}
-
-
-function closeDefinition() {
-  document.getElementById("dictionary-popup").classList.add("hidden");
-}
-
-function fetchDefinition(word) {
-  console.log("Looking up:", word); // ✅ NEW LINE
-
-  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log("API response:", data); // ✅ NEW LINE
-
-      const definition = data[0]?.meanings[0]?.definitions[0]?.definition;
-      if (definition) {
-        showDefinition(`${word}: ${definition}`);
-      } else {
-        showDefinition(`${word}: No definition found.`);
-      }
-    })
-    .catch(error => {
-      console.error("Fetch error:", error); // ✅ NEW LINE
-      showDefinition(`${word}: No definition found.`);
+document.addEventListener("DOMContentLoaded", () => {
+  const closeBtn = document.getElementById("close-dict");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      const popup = document.getElementById("dictionary-popup");
+      if (popup) popup.classList.add("hidden");
     });
-}
+  }
+
+});
 
 function highlightSelectedWord() {
-  if (!selectedWord) return;
+  const selection = window.getSelection();
+  const selectedText = selection.toString().trim();
 
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-  
-    const span = document.createElement("span");
-    span.className = "highlighted";
-    span.textContent = selectedWord;
+  if (!selectedText && justHighlighted && lastHighlightedSpan && lastHighlightedSpan.parentNode) {
+    const parent = lastHighlightedSpan.parentNode;
+    const textNode = document.createTextNode(lastHighlightedSpan.textContent);
+    parent.replaceChild(textNode, lastHighlightedSpan);
 
-    range.deleteContents();
-    range.insertNode(span);
+    lastHighlightedSpan = null;
+    lastHighlightedHTML = null;
+    justHighlighted = false;
+    return;
+  }
 
-  selectedWord = ""; // Reset after highlight
+  if (!selection || !selectedText || selection.rangeCount === 0) return;
+
+  const range = selection.getRangeAt(0);
+  const span = document.createElement("span");
+  span.className = "highlighted";
+  span.textContent = selectedText;
+
+
+  lastHighlightedSpan = span;
+  lastHighlightedHTML = range.cloneContents();
+  justHighlighted = true;
+
+  range.deleteContents();
+  range.insertNode(span);
+  selection.removeAllRanges();
 }
 
