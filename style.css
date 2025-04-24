@@ -572,7 +572,14 @@ button:hover{
     font-size: 1.5rem;
     margin: 0;
   }
-
+  .page-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--dark-green); 
+    margin-top: 120px; 
+    margin-bottom: 32px;
+  }
+  
   .reader-wrapper {
     position: relative;
     max-width: 1000px;
@@ -600,5 +607,36 @@ button:hover{
     padding: 10px;
     z-index: 999;
     text-align: center;
+  }
+  
+  .activity-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin: 3rem auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+  }
+  
+  .activity-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 220px;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .activity-card:hover {
+    transform: translateY(-6px);
+  }
+  
+  .activity-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
   }
   

@@ -3,30 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Activities</title>
+  <title>Quizy Quizy Time!</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="activities.js" defer></script>
 </head>
 <body>
+
   <nav>
     <ul class="items">
       <li><a href="shop.html">Shop</a></li>
       <li><a href="bookshelf.html">Bookshelf</a></li>
-      <li><a href="activities.html" class="active">Activities</a></li>
+      <li><a href="activities.html">Activities</a></li>
       <li><a href="notes.html">Notes</a></li>
       <li><a href="achievements.html">Achievements</a></li>
     </ul>
   </nav>
 
   <main class="quiz-page">
-    <h1 class="page-title">Choose a Book to Begin Activities</h1>
-    <div id="book-selection" class="book-grid"></div>
-    <div id="quiz-container" class="hidden">
-    <div id="question"></div>
-    <div id="options"></div>
-    <button id="next-btn" class="hidden">Next</button>
-    <p id="score" class="hidden"></p>
-  </div>
+    <h1 class="page-title">Quiz</h1>
+    <div id="quiz-container">
+      <h2 id="quiz-title"></h2>
+      <div id="question"></div>
+      <div id="options"></div>
+      <button id="next-btn" class="hidden">Next</button>
+      <p id="score" class="hidden"></p>
+    </div>
   </main>
+
+  <script src="quiz.js"></script>
 </body>
 </html>
