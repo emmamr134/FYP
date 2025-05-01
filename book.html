@@ -10,7 +10,6 @@
 <body>
 
 <nav>
-  <button id="toggle-theme">Dark Mode</button>
     <ul class="items">
       <li><a href="shop.html">Shop</a></li>
       <li><a href="bookshelf.html" class="active">Bookshelf</a></li>
@@ -27,14 +26,15 @@
       <h1 id="book-title">Romeo and Juliet</h1>
 
       <div class="reader-wrapper">
-        <button id="prev-btn" class="nav-btn">Back</button>
+
         
         <div id="book-text" class="reader"></div>
-        <button id="next-btn" class="nav-btn">Next</button>
+
       </div>
 
       <div class="reader-toolbar">
         <button onclick="highlightSelectedWord()">Highlight</button>
+        <button id="toggle-notes-btn">Notes</button>
 
 
       </div>
@@ -69,6 +69,20 @@
         </div>
       </section>
     </main>
+
+
+    <div id="notes-popup" class="popup modal hidden"> 
+        <div class="modal-content"> 
+            <h2>My Notes for <span id="notes-popup-title">Book</span></h2> 
+            <textarea id="book-note" placeholder="Write your notes for this book here..."></textarea>
+            <button id="save-note-btn">Save Note</button>
+            <div id="notes-display">
+              <h3>Saved Notes:</h3>
+              <ul id="notes-list"></ul>
+            </div>
+            <button id="close-notes-btn" class="btn">Close</button> 
+        </div>
+    </div>
   
     <div id="dictionary-popup" class="popup hidden">
       <h3>Definition</h3>
