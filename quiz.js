@@ -12,7 +12,7 @@ let currentQuiz = [];
 const quizzes = {
 "Romeo and Juliet": [
   {
-    question: "Where is *Romeo and Juliet* set?",
+    question: "Where is Romeo and Juliet set?",
     options: ["Genoa", "Verona", "Venice", "Milan"],
     answer: "Verona"
   },

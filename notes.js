@@ -53,4 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
         noNotesMessage.textContent = "No notes saved yet. Go to a book page to add some!";
         notesContentSection.appendChild(noNotesMessage);
     }
+
+    const badWords = ["fuck", "shit", "bitch", "bastard", "dick", "slut", "cunt"];
+
+
 });

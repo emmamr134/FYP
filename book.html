@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet" />
 </head>
-<body>
+
+<body class="bookshelf-page">
 
 <nav>
     <ul class="items">
@@ -21,74 +22,41 @@
 
 
 <main>
+<h1 id="book-title">Book Title</h1>
+  <div class="reader-wrapper">    
+     <div id="reader-tip" class="reader-tip">
+      Tip: Select any single word to see its definition.
+    </div>
+    <div id="book-text" class="reader"></div>
 
-    <section class="book-content">
-      <h1 id="book-title">Romeo and Juliet</h1>
+  <div id="dictionary-popup" class="popup hidden">
+    <h3>Definition</h3>
+    <p id="definition-text">Click a word to look it up!</p>
+    <button id="close-dict">Close</button>
+  </div>
 
-      <div class="reader-wrapper">
-
-        
-        <div id="book-text" class="reader"></div>
-
-      </div>
-
-      <div class="reader-toolbar">
-        <button onclick="highlightSelectedWord()">Highlight</button>
-        <button id="toggle-notes-btn">Notes</button>
-
-
-      </div>
-
-        <button id="cast-btn">View Cast</button>
-        <div id="cast-popup" class="popup hidden">
-            <h2>Cast</h2>
-            <ul>
-                <li>Romeo -</li>
-                <li>Juliet -</li>
-                <li>Tybalt -</li>
-            </ul>
-            <button onclick="closeCast()">Close</button>
-        </div>
-    </section>
-    <section class="tab-section">
-        <div class="tabs">
-          <button class="tab active" onclick="openTab('locations')">Locations</button>
-          <button class="tab" onclick="openTab('themes')">Themes</button>
-          <button class="tab" onclick="openTab('cast')">Cast</button>
-          <button class="tab" onclick="openTab('summaries')">Summaries</button>
-        </div>
-  
-        <div class="tab-content" id="locations">Verona, Mantua, Capulet's house...</div>
-        <div class="tab-content hidden" id="themes">Love, fate, conflict, family honour...</div>
-        <div class="tab-content hidden" id="cast">Romeo, Juliet, Mercutio, Tybalt...</div>
-        <div class="tab-content hidden" id="summaries">
-          <h3>Chapter 1</h3>
-          <p>Romeo is heartbroken over Rosaline...</p>
-          <h3>Chapter 2</h3>
-          <p>Romeo meets Juliet at the Capulet's party...</p>
-        </div>
-      </section>
-    </main>
-
-
-    <div id="notes-popup" class="popup modal hidden"> 
-        <div class="modal-content"> 
-            <h2>My Notes for <span id="notes-popup-title">Book</span></h2> 
-            <textarea id="book-note" placeholder="Write your notes for this book here..."></textarea>
-            <button id="save-note-btn">Save Note</button>
-            <div id="notes-display">
-              <h3>Saved Notes:</h3>
-              <ul id="notes-list"></ul>
-            </div>
-            <button id="close-notes-btn" class="btn">Close</button> 
-        </div>
+  </div>
+    
+    <div class="reader-toolbar">
+      <button onclick="highlightSelectedWord()">Highlight</button>
+      <button id="toggle-notes-btn">Notes</button>
     </div>
   
-    <div id="dictionary-popup" class="popup hidden">
-      <h3>Definition</h3>
-      <p id="definition-text">Click a word to look it up!</p>
-      <button id="close-dict">Close</button>
+</main>
+
+<div id="notes-popup" class="popup hidden">
+  <div class="modal-content">
+    <h2>My notes for <span id="notes-popup-title"></span></h2>
+    <textarea id="book-note" placeholder="Write your notes for this book here..."></textarea>
+    <button id="save-note-btn">Save</button>
+    <div id="notes-display">
+      <h3>Saved Notes:</h3>
+      <ul id="notes-list"></ul>
     </div>
+    <button id="close-notes-btn" class="btn">Close</button>
+  </div>
+</div>
+
     <script src="book.js"></script>
     <script src="shared.js"></script>
 

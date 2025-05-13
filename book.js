@@ -241,13 +241,17 @@ if (selection && selection.split(/\s+/).length === 1) {
   }
   //Notes Feature Ends
 
-
   const dictCloseBtn = document.getElementById("close-dict"); 
   if (dictCloseBtn) {
-    dictCloseBtn.addEventListener("click", () => { 
-        closeDefinition(); 
-    });
-  }
+    dictCloseBtn.addEventListener("click", closeDefinition);
+    }
+
+  const tip = document.getElementById("reader-tip");
+if (tip) {
+  setTimeout(() => {
+    tip.classList.add("hidden");
+  }, 5000); // 5000ms = 5 seconds
+}
 
 
 }); 

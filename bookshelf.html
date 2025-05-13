@@ -9,7 +9,7 @@
     
 </head>
 
-<body>
+<body class="bookshelf-page">
 <nav>
     <ul class="items">
                 <li><a href="shop.html">Shop</a></li>
@@ -21,8 +21,6 @@
 </nav>
 
 <main>
-
-    <button onclick="clearBookshelf()" style="margin-bottom: 20px;">Clear Bookshelf</button>
     <div class="book-grid" id="bookshelf-container"></div>
 </main>
 
@@ -35,15 +33,7 @@
     <p>We Love Lit © </p>
 </div>
 
-<div id="confirm-popup" class="modal hidden">
-    <div class="modal-content">
-      <p>Are you sure you want to clear your bookshelf?</p>
-      <div class="modal-buttons">
-        <button onclick="confirmClear()">Yes, clear it</button>
-        <button onclick="cancelClear()">Cancel</button>
-      </div>
-    </div>
-  </div>
+
 
 <div id="toast" class="toast-message hidden"></div>
   

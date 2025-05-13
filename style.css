@@ -1,4 +1,8 @@
-
+*{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
 
 :root {
   --font-body: 'Literata', serif;
@@ -16,12 +20,19 @@
 body {
     font-family: var(--font-body);
     margin:0;
-    padding: 0;
+    padding-top: 0;
     background: #f9f9f9;
     color: var(--text-color);
     line-height: var(--line-height);
     min-height: 100vh;
+}
 
+.bookshelf-page main {
+  margin-top: 10px;
+}
+
+.shop-page main{
+  margin-top: 10px;
 }
 
 body, h1, h2, p, ul {
@@ -48,13 +59,13 @@ h1,h2,h3{
  }
 
 nav {
-    position: fixed;
+    position: sticky;
     top:0; left: 0; right: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 1rem 2rem;
+    padding: 1rem;
     height:64px;
     background: var(--light-blue);
     z-index: 1000;
@@ -148,6 +159,7 @@ nav ul li a.active::after {
 #book-title{
  font-size: 2rem;
  margin-top: 1.5rem;
+ text-align: center;
 }
 
 #book-text {
@@ -275,6 +287,8 @@ nav ul li a.active::after {
 
 .popup {
     background: white;
+    top: 50%;
+    left: 10%;
     padding: 16px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
@@ -314,7 +328,7 @@ nav ul li a.active::after {
     display:flex;
     overflow-x:auto;
     gap:24px;
-    padding:200px 0 20px 0;
+    padding:40px 0 20px 0;
     scroll-snap-type: x mandatory;
 }
 
@@ -369,16 +383,20 @@ nav ul li a.active::after {
 }
 
 #dictionary-popup {
-    position: fixed;
-    top:100px;
-    right:30px;
+    position: absolute;
+    top:0;
+    left:100%;
+    margin-left: 1rem;
+    width: 280px;
+    max-width: 250px;
     background: white;
     padding:16px;
+    transform: none;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    max-width: 250px;
     z-index:1000;
 }
+
 
 button {
     background-color: #A1B582;
@@ -459,9 +477,11 @@ button:hover{
     max-width: 300px;
     width: 100%;
     height: auto;
+    position: relative;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
+
   
   .book-info {
     flex: 1;
@@ -597,14 +617,13 @@ button:hover{
     font-size: 1.5rem;
     margin: 0;
   }
-
   
   .reader-wrapper {
     position: relative;
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 900px;
+    margin: 0 auto;
   }
+
 
   .swipe-arrow {
     position: absolute;
@@ -749,9 +768,24 @@ button:hover{
     animation: bounce 0.6s ease;
   }
 
+#notes-popup{
+ background: transparent;
+ padding: 0% !important;
+  position: absolute !important;
+  top: 1rem;
+  left: 0 !important;
+  transform: none !important;
+  width: 300px;
+  max-width: 90%;
+  z-index: 2000;
+  background: transparent;
+}
+
 #notes-popup .modal-content {
+  background: white;
   max-width: 500px; 
   text-align: left;
+  box-shadow: 0 4px 16px rbga(0,0,0,0.2);
 }
 
 #notes-popup h2 {
@@ -795,9 +829,9 @@ button:hover{
 }
 
 #notes-popup #notes-list {
-  list-style: disc;
-  padding-left: 20px;
-  margin-bottom: 10px;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
 }
 
 #notes-popup #notes-list li {
@@ -809,4 +843,96 @@ button:hover{
 #notes-popup #close-notes-btn {
   display: block;
   margin: 15px auto 0 auto; 
+}
+
+.notes-page{
+  max-width: 800px;
+  margin:2rem auto;
+  padding: 2rem;
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: 0 4px 12pc rgba(0, 0, 0, 0.05);
+}
+
+.notes-header h1{
+  font-family: var(--font-ui);
+  font-size: 2rem;
+  color:var(--dark-green);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.notes-subtext{
+  font-size: 1rem;
+  text-align: center;
+  color:var(--grey);
+  margin-bottom: 2rem;
+}
+
+.notes-box{
+  background: var(--cream);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#book-note{
+  width:100%;
+  height: 150px;
+  padding: 12px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-bottom: 1rem;
+}
+
+#save-note-btn {
+  background-color: var(--dark-green);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#save-note-btn:hover {
+  background-color: #2d4735;
+}
+
+#notes-display {
+  margin-top: 2rem;
+}
+
+#notes-display h3 {
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+  margin-bottom: 1rem;
+}
+
+#notes-list li {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border-left: 4px solid var(--dark-green);
+}
+#reader-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--grey);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+#reader-tip.hidden{
+  opacity: 0;
+  transform: translateY(-10px);
 }
