@@ -29,6 +29,7 @@ function readNow(title, image) {
   window.location.href = "book.html";
 }
 
+
 function removeBook(index) {
   let bookshelf = JSON.parse(localStorage.getItem("bookshelf")) || [];
 

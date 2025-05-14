@@ -55,8 +55,8 @@ if (selection && selection.split(/\s+/).length === 1) {
     if (imgEl) imgEl.src = bookData.image;
 
     const bookFiles = {
-      "Romeo and Juliet": "romeoandjuliet.txt",
-      "Sense and Sensibility": "senseandsensibility.txt"
+      "Romeo and Juliet": window.location.href = "romeo_juliet_scene_1.html",
+      "Sense and Sensibility":  window.location.href = "sense_chapter_4.html"
     };
 
     const filename = bookFiles[bookData.title];
@@ -66,6 +66,18 @@ if (selection && selection.split(/\s+/).length === 1) {
 
   const reader = document.getElementById("book-text");
 
+  function nextPage() {
+    if (reader) reader.scrollBy({ top: reader.clientHeight, behavior: "smooth" });
+  }
+  function prevPage() {
+    if (reader) reader.scrollBy({ top: -reader.clientHeight, behavior: "smooth" });
+  }
+
+
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  if (prevBtn) prevBtn.addEventListener("click", prevPage);
+  if (nextBtn) nextBtn.addEventListener("click", nextPage);
 
   let touchStartX = 0;
   const swipeThreshold = 50;
@@ -76,7 +88,8 @@ if (selection && selection.split(/\s+/).length === 1) {
     reader.addEventListener("touchend", e => {
       const dx = e.changedTouches[0].screenX - touchStartX;
       if (Math.abs(dx) < swipeThreshold) return;
-
+      if (dx < 0) nextPage(); else prevPage();
+      
       
       const nav = document.querySelector("nav");
       const main = document.querySelector("main");
@@ -130,131 +143,18 @@ if (selection && selection.split(/\s+/).length === 1) {
   const closeBtn = document.getElementById("close-dict");
   if (closeBtn) closeBtn.addEventListener("click", closeDefinition);
 
-  //Notes Feature
-  const notesTextArea = document.getElementById("book-note");
-  const saveNoteBtn = document.getElementById("save-note-btn");
-  const notesList = document.getElementById("notes-list");
-  let currentBookTitle = ''; 
+});
 
-  function getNotesKey(title) {
-    const sanitizedTitle = title.replace(/[^a-zA-Z0-9 -]/g, "").replace(/\s+/g, "_");
-    return `notes_${sanitizedTitle}`;
-  }
-
-  function loadNotes(bookTitle) {
-    if (!bookTitle || !notesList) return;
-    const notesKey = getNotesKey(bookTitle);
-    const savedNotes = JSON.parse(localStorage.getItem(notesKey) || "[]");
-
-    notesList.innerHTML = ''; // Clear existing notes
-    savedNotes.forEach(note => {
-      const li = document.createElement("li");
-      li.textContent = note;
-      notesList.appendChild(li);
+document.addEventListener("DOMContentLoaded", () => {
+  const closeBtn = document.getElementById("close-dict");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      const popup = document.getElementById("dictionary-popup");
+      if (popup) popup.classList.add("hidden");
     });
   }
 
-  function saveNote(bookTitle) {
-    if (!bookTitle || !notesTextArea) return;
-    const noteText = notesTextArea.value.trim();
-    if (noteText) {
-      const notesKey = getNotesKey(bookTitle);
-      const savedNotes = JSON.parse(localStorage.getItem(notesKey) || "[]");
-      savedNotes.push(noteText);
-      localStorage.setItem(notesKey, JSON.stringify(savedNotes));
-      notesTextArea.value = ''; 
-      loadNotes(bookTitle); // Refresh the list
-    }
-  }
-
-  (function initBookView() {
-    const bookData = JSON.parse(localStorage.getItem("currentBook"));
-    const titleEl = document.getElementById("book-title");
-    const imgEl = document.getElementById("book-image"); 
-
-    if (!bookData) {
-      if (titleEl) titleEl.textContent = "No book selected.";
-      return;
-    }
-
-    currentBookTitle = bookData.title; 
-    if (titleEl) titleEl.textContent = currentBookTitle;
-    if (imgEl) imgEl.src = bookData.image;
-
-    const bookFiles = {
-      "Romeo and Juliet": "romeoandjuliet.txt",
-      "Sense and Sensibility": "senseandsensibility.txt"
-    };
-
-    const filename = bookFiles[currentBookTitle];
-    if (filename) {
-        loadBookText(filename);
-    } else if (titleEl) {
-        console.warn("No text file mapping found for:", currentBookTitle);
-        const container = document.getElementById("book-text");
-        if (container) container.textContent = "Book text content not available.";
-    }
-
-    loadNotes(currentBookTitle);
-
-  })(); 
-
-  if (saveNoteBtn) {
-    saveNoteBtn.addEventListener("click", () => {
-      saveNote(currentBookTitle);
-    });
-  }
-
-
-  const toggleNotesBtn = document.getElementById("toggle-notes-btn");
-  const closeNotesBtn = document.getElementById("close-notes-btn");
-  const notesPopup = document.getElementById("notes-popup");
-  const notesPopupTitle = document.getElementById("notes-popup-title");
-
-  function openNotesPopup() {
-      if (notesPopup && notesPopupTitle && currentBookTitle) {
-          notesPopupTitle.textContent = currentBookTitle; 
-          notesPopup.classList.remove("hidden");
-      }
-  }
-
-  function closeNotesPopup() {
-      if (notesPopup) {
-          notesPopup.classList.add("hidden"); 
-      }
-  }
-
-  if (toggleNotesBtn) {
-    toggleNotesBtn.addEventListener("click", openNotesPopup);
-  }
-
-  if (closeNotesBtn) {
-    closeNotesBtn.addEventListener("click", closeNotesPopup);
-  }
-
-  const navNotesLink = document.querySelector('nav ul.items a[href="notes.html"]');
-  if (navNotesLink) { 
-      navNotesLink.addEventListener('click', (event) => {
-          event.preventDefault();
-          openNotesPopup();
-      });
-  }
-  //Notes Feature Ends
-
-  const dictCloseBtn = document.getElementById("close-dict"); 
-  if (dictCloseBtn) {
-    dictCloseBtn.addEventListener("click", closeDefinition);
-    }
-
-  const tip = document.getElementById("reader-tip");
-if (tip) {
-  setTimeout(() => {
-    tip.classList.add("hidden");
-  }, 5000); // 5000ms = 5 seconds
-}
-
-
-}); 
+});
 
 function highlightSelectedWord() {
   const selection = window.getSelection();
@@ -287,3 +187,4 @@ function highlightSelectedWord() {
   range.insertNode(span);
   selection.removeAllRanges();
 }
+
