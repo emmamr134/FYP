@@ -343,16 +343,29 @@ nav ul li a.active::after {
     border-radius: 4px;
 }
 
+.mini-tab{
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: var(--grey);
+  color: white;
+  margin-left: 8px;
+}
+
+.mini-tab:hover{
+  background-color: var(--dark-blue);
+}
+
 #dictionary-popup {
-    position: fixed;
-    top:100px;
-    right:30px;
-    background: white;
-    padding:16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    max-width: 250px;
-    z-index:1000;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  padding: 1em;
+  border: 1px solid #ccc;
+  z-index: 9999;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
 }
 
 button {
@@ -368,11 +381,6 @@ button {
 button:hover{
     background-color: #94a76c;
 }
-
-.highlighted {
-    background-color: yellow;
-    border-radius: 4px;
-  }
   
 
 .modal {
@@ -705,21 +713,6 @@ button:hover{
   #next-btn {
   position: static;
   margin: 20px auto 0;
-}
-
-#dictionary-popup {
-    position: absolute;
-    top:0;
-    left:100%;
-    margin-left: 1rem;
-    width: 280px;
-    max-width: 250px;
-    background: white;
-    padding:16px;
-    transform: none;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    z-index:1000;
 }
 
 .popup {

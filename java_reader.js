@@ -53,3 +53,35 @@ function johnProfile() {
     document.getElementById("plotPhoto").src = "portraits/stand-by.png";
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const popup   = document.getElementById("dictionary-popup");
+  const defText = document.getElementById("definition-text");
+  const closeBtn= document.getElementById("close-dict");
+
+  closeBtn.addEventListener("click", () => {
+    popup.classList.add("hidden");
+  });
+
+  const bookText = document.getElementById("book-text");
+  if(bookText) {
+    bookText.addEventListener("mouseup", () =>{
+
+      const sel = window.getSelection().toString().trim();
+      const word = sel.replace(/[^a-zA-Z]/g, "");
+      if (!word) return;
+      fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+        .then(res => res.json())
+        .then(data => {
+          const def = data[0]?.meanings[0]?.definitions[0]?.definition;
+          defText.textContent = def
+            ? `${word}: ${def}`
+            : `${word}: No definition found.`;
+          popup.classList.remove("hidden");
+        })
+        .catch(() => {
+          defText.textContent = `${word}: No definition found.`;
+          popup.classList.remove("hidden");
+        });
+    });
+  }
+});

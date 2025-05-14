@@ -386,11 +386,6 @@ nav ul li a.active::after {
     display: none;
 }
 
-.highlighted {
-    background-color: yellow;
-    border-radius: 4px;
-}
-
 #dictionary-popup {
     position: absolute;
     top:0;
@@ -421,11 +416,6 @@ button:hover{
     background-color: #94a76c;
 }
 
-.highlighted {
-    background-color: yellow;
-    border-radius: 4px;
-  }
-  
 
 .modal {
     position: fixed;

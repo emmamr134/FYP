@@ -2,11 +2,16 @@ let isHighlighting = false;
 let lastHighlightedText = "";
 let lastHighlightedSpan = null;
 let lastHighlightedHTML = null;
-
+let justHighlighted = false;
 
 
 document.addEventListener("DOMContentLoaded", () => {
  
+const highlightBtn = document.getElementById("highlight-btn");
+if (highlightBtn) {
+  highlightBtn.addEventListener("click", highlightSelectedWord);
+}
+
   function loadBookText(filename) {
     fetch(filename)
       .then(response => response.text())
@@ -29,16 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (container) container.textContent = "Failed to load book text.";
       });
   }
-
-
-  document.getElementById("book-text").addEventListener("mouseup", () => {
-    if (isHighlighting) return; 
-  
-    const selection = window.getSelection().toString().trim();
-if (selection && selection.split(/\s+/).length === 1) {
-  fetchDefinition(selection);
-}
-});
    
   
   (function initBookView() {
@@ -127,18 +122,17 @@ if (selection && selection.split(/\s+/).length === 1) {
       });
   }
 
-  document.getElementById("book-text").addEventListener("mouseup", () => {
-    if (isHighlighting) return;
-  
-    const selection = window.getSelection();
-    const word = selection.toString().trim();
-  
-    const isSingleWord = /^[a-zA-Z]+$/.test(word);
-  
-    if (word && isSingleWord) {
-      fetchDefinition(word);
-    }
-  });
+ document.getElementById("book-text").addEventListener("mouseup", () => {
+  if (isHighlighting) return;
+  const selection = window.getSelection();
+  const word = selection.toString().trim();
+  console.log("selected", JSON.stringify(word));
+  const isSingleWord = /^[a-zA-Z]+$/.test(word);
+  if (word && isSingleWord) {
+    console.log("fetching definition for", word);
+    fetchDefinition(word);
+  }
+});
 
   const closeBtn = document.getElementById("close-dict");
   if (closeBtn) closeBtn.addEventListener("click", closeDefinition);
